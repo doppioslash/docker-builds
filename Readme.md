@@ -9,13 +9,11 @@ You can view our official builds on [Docker Hub Registry](https://registry.hub.d
 
 To get started with running NodeBB using Docker, you will want to run a redis instance.
 
-    docker run --name my-forum-redis -d -p 6379:6379 nodebb/docker:centos-redis
-    docker run --name my-forum-redis -d -p 6379:6379 nodebb/docker:ubuntu-redis
+    docker run --name my-forum-redis -d -p 6379:6379 doppioslash/redis:ubuntu
 
 Next, launch the NodeBB instance, so it links with the just-launched Redis instance.
 
-    docker run --name my-forum-nodebb --link my-forum-redis:redis -p 80:80 -p 443:443 -p 4567:4567 -P -t -i nodebb/docker:centos
-    docker run --name my-forum-nodebb --link my-forum-redis:redis -p 80:80 -p 443:443 -p 4567:4567 -P -t -i nodebb/docker:ubuntu
+    docker run --name my-forum-nodebb --link my-forum-redis:redis -p 80:80 -p 443:443 -p 4567:4567 -P -t -i doppioslash/nodebb:ubuntu
 
 You will be asked to configure your NodeBB instance, as no config file was found. Simply press enter for all settings except Redis hostname, which should be `redis` as it is linked using the `--linked` parameter to our Redis instance, and the administrator username, e-mail and password. 
 
