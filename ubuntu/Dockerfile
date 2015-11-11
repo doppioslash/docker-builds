@@ -8,8 +8,9 @@ RUN apt-get upgrade -y
 RUN apt-get install nodejs nodejs-legacy npm imagemagick git -y
 
 # Install nodebb
-RUN cd /opt && git clone -b v0.6.x https://github.com/NodeBB/NodeBB nodebb
-RUN cd /opt/nodebb && npm install
+RUN cd /opt && git clone -b v0.8.x https://github.com/NodeBB/NodeBB nodebb
+RUN cd /opt/nodebb && npm install --production
+RUN npm install -g supervisor
 
 # Create a mountable volume
 VOLUME /opt/nodebb
@@ -23,4 +24,7 @@ EXPOSE 443
 EXPOSE 4567
 
 # Define default command.
+# COPY config.json ./
+#CMD supervisor app
 CMD ["node", "app.js"]
+
