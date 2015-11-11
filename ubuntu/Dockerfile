@@ -10,7 +10,8 @@ RUN apt-get install nodejs nodejs-legacy npm imagemagick git -y
 # Install nodebb
 RUN cd /opt && git clone -b v0.8.x https://github.com/NodeBB/NodeBB nodebb
 RUN cd /opt/nodebb && npm install --production
-RUN npm install -g supervisor
+# RUN npm install redis@~0.10.1 connect-redis@~2.0.0
+# RUN npm install -g supervisor
 
 # Create a mountable volume
 VOLUME /opt/nodebb
@@ -25,6 +26,8 @@ EXPOSE 4567
 
 # Define default command.
 # COPY config.json ./
-#CMD supervisor app
-CMD ["node", "app.js"]
+# RUN node app --setup
 
+# CMD node app --setup && npm start
+# CMD supervisor app # supervisor works but still needs setup
+CMD url=<your url>:80 node app.js # web setup will work with this
